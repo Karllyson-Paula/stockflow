@@ -20,22 +20,27 @@ model Negocio {
 model Produto {
   id          Int       @id @default(autoincrement())
   nome        String
-  quantidade  Int       @default(0)
+  categoria   String
+  marca       String?
   precoCusto  Float
   precoVenda  Float?
   negocio     Negocio   @relation(fields: [negocioId], references: [id])
   negocioId   Int
-  atributos   Atributo[]
+  variantes   Variante[]
   criadoEm    DateTime  @default(now())
   atualizadoEm DateTime @updatedAt
 }
 
-model Atributo {
+model Variante {
   id        Int     @id @default(autoincrement())
-  chave     String
-  valor     String
+  quantidade  Int       @default(0)
+  tamanho   String?
+  cor       String?
+  tecido    String?
+  genero    String?
   produto   Produto @relation(fields: [produtoId], references: [id], onDelete: Cascade)
   produtoId Int
+  criadoEm  DateTime @default(now())
 }
 
 model Usuario {

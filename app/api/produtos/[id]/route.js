@@ -6,7 +6,7 @@ export async function GET(request, { params }) {
 
     const produto = await prisma.produto.findUnique({
         where: { id: Number(id) },
-        include: { atributos: true }
+        include: { variantes: true }
     })
 
     if (!produto) {
@@ -21,7 +21,7 @@ export async function PUT(request, { params }) {
 
     const produto = await prisma.produto.findUnique({
         where: { id: Number(id)},
-        include: { atributos: true}
+        include: { variantes: true}
     })
 
     if (!produto) {
@@ -29,15 +29,16 @@ export async function PUT(request, { params }) {
     }
 
     const dados = await request.json()
-    const { nome, quantidade, precoVenda, atributos } = dados
+    const { nome, categoria, marca, precoVenda, variantes } = dados
 
     const produtoAtualizado = await prisma.produto.update({
         where: { id: Number(id) },
         data: {
             ...(nome && {nome}),
-            ...(quantidade && {quantidade}),
+            ...(categoria && {categoria}),
+            ...(marca && {marca}),
             ...(precoVenda && {precoVenda}),
-            ...(atributos && {atributos})
+            ...(variantes && {variantes})
         }
     })
 
@@ -49,7 +50,7 @@ export async function DELETE(request, { params }) {
 
     const produto = await prisma.produto.findUnique({
         where: { id: Number(id)},
-        include: { atributos: true}
+        include: { variantes: true}
     })
 
     if (!produto) {

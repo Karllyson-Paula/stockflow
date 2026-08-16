@@ -8,7 +8,7 @@ export async function GET(request) {
 
     const produtos = await prisma.produto.findMany({
         where: negocioId ? { negocioId: Number(negocioId) } : {},
-        include: { atributos: true },
+        include: { variantes: true },
         orderBy: { criadoEm: 'desc' }
     })
 
@@ -18,20 +18,21 @@ export async function GET(request) {
 // POST api/produtos
 export async function POST(request) {
     const dados = await request.json()
-    const { nome, quantidade, precoCusto, precoVenda, negocioId, atributos } = dados
+    const { nome, categoria, marca, precoCusto, precoVenda, negocioId, variantes } = dados
 
     const produto = await prisma.produto.create({
         data: {
             nome,
-            quantidade: Number(quantidade),
+            categoria,
+            marca,
             precoCusto: parseFloat(precoCusto),
             precoVenda: parseFloat(precoVenda),
             negocioId: Number(negocioId),
-            atributos: {
-                create: atributos || []
+            variantes: {
+                create: variantes || []
             }
         },
-        include: { atributos: true}
+        include: { variantes: true}
     })
 
     return NextResponse.json(produto, { status: 201 })
