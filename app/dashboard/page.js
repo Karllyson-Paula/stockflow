@@ -8,7 +8,7 @@ export default async function Dashboard() {
 
     const produtos = await prisma.produto.findMany({
         where: { negocioId: session.user.negocioId },
-        include: { atributos: true }
+        include: { variantes: true }
         
     })
         return (
@@ -26,8 +26,13 @@ export default async function Dashboard() {
                         produtos.map(produto => (
                             <div key={produto.id}>
                                 <p>{produto.nome}</p>
-                                <p>Quantidade: {produto.quantidade}</p>
-                                <p>Preço: {produto.precoCusto ?? produto.precoVenda}</p>
+                                <p>Preço: {produto.precoVenda ?? produto.precoCusto}</p>
+
+                                {produto.variantes.map((variante, i) => (
+                                    <div key={i}>
+                                        <p>Tamanho: {variante.tamanho} | Cor: {variante.cor} | Qtd: {variante.quantidade} </p>
+                                    </div>
+                                ))}
                             </div>
                         ))
                     )}
