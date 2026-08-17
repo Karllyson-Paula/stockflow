@@ -26,11 +26,16 @@ export default async function Dashboard() {
                         produtos.map(produto => (
                             <div key={produto.id}>
                                 <p>{produto.nome}</p>
-                                <p>Preço: {produto.precoVenda ?? produto.precoCusto}</p>
+                              { /* <p>Preço: {produto.precoVenda ?? produto.precoCusto}</p> */ }
 
                                 {produto.variantes.map((variante, i) => (
                                     <div key={i}>
-                                        <p>Tamanho: {variante.tamanho} | Cor: {variante.cor} | Qtd: {variante.quantidade} </p>
+                                        <p>
+                                            Tamanho: {variante.tamanho} | 
+                                            Cor: {variante.cor} | 
+                                            Qtd: {variante.quantidade} |
+                                            R$ {variante.precoVenda}
+                                        </p>
                                     </div>
                                 ))}
                             </div>

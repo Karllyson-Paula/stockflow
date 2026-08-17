@@ -18,11 +18,13 @@ export async function GET(request) {
 // POST api/produtos
 export async function POST(request) {
     const dados = await request.json()
-    const { nome, categoria, marca, precoCusto, precoVenda, negocioId, variantes } = dados
+    const { nome, categoria, marca, negocioId, variantes } = dados
 
     const variantesConvertidas = variantes.map(v => ({
         ...v,
-        quantidade: Number(v.quantidade)
+        quantidade: Number(v.quantidade),
+        precoCusto: parseFloat(v.precoCusto),
+        precoVenda: v.precoVenda ? parseFloat(v.precoVenda) : null
     }))
 
     const produtoExistente = await prisma.produto.findFirst({
@@ -47,8 +49,6 @@ export async function POST(request) {
             nome,
             categoria,
             marca,
-            precoCusto: parseFloat(precoCusto),
-            precoVenda: parseFloat(precoVenda),
             negocioId: Number(negocioId),
             variantes: {
                 create: variantesConvertidas || []

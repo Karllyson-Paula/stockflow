@@ -10,16 +10,14 @@ export default function NovoProduto() {
     const [nome, setNome] = useState('')
     const [categoria, setCategoria] = useState('')
     const [marca, setMarca] = useState('')
-    const [precoCusto, setPrecoCusto] = useState('')
-    const [precoVenda, setPrecoVenda] = useState('')
     const [variantes, setVariantes] = useState([
-        { tamanho: '', cor: '', genero: '', tecido: '', quantidade: 0}
+        { tamanho: '', cor: '', genero: '', tecido: '', precoCusto: '', precoVenda: '', quantidade: 0 }
     ])
     const [loading, setLoading] = useState(false)
     const [erro, setErro] = useState(null)
 
     const adicionarVariante = () => {
-        setVariantes([...variantes, { tamanho: '', cor: '', genero: '', tecido: '', quantidade: 0 }])
+        setVariantes([...variantes, { tamanho: '', cor: '', genero: '', tecido: '', precoCusto: '', precoVenda: '', quantidade: 0 }])
     }
 
     const removerVariante = (index) => {
@@ -38,7 +36,7 @@ export default function NovoProduto() {
         const res = await fetch('/api/produtos', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ nome, categoria, marca, precoCusto, precoVenda, variantes, negocioId: session?.user?.negocioId })
+            body: JSON.stringify({ nome, categoria, marca, variantes, negocioId: session?.user?.negocioId })
         })
 
         const dados = await res.json()
@@ -68,16 +66,7 @@ export default function NovoProduto() {
                 value={marca}
                 onChange={e => setMarca(e.target.value)}
                 />
-                <input
-                placeholder='Preço de custo'
-                value={precoCusto}
-                onChange={e => setPrecoCusto(e.target.value)}
-                />
-                <input
-                placeholder='Preço de venda'
-                value={precoVenda}
-                onChange={e => setPrecoVenda(e.target.value)}
-                />
+                
                 <div>
                     <h3>Variantes</h3>
                     {variantes.map((variante, index) => (
@@ -101,6 +90,16 @@ export default function NovoProduto() {
                             placeholder='Tecido'
                             value={variante.tecido}
                             onChange={e => atualizarVariante(index, 'tecido', e.target.value)}
+                            />
+                            <input
+                            placeholder='Preço de custo'
+                            value={variante.precoCusto}
+                            onChange={e => atualizarVariante(index, 'precoCusto', e.target.value)}
+                            />
+                            <input
+                            placeholder='Preço de venda'
+                            value={variante.precoVenda}
+                            onChange={e => atualizarVariante(index, 'precoVenda', e.target.value)}
                             />
                             <input
                             placeholder='Quantidade'

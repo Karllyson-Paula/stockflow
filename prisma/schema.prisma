@@ -22,8 +22,6 @@ model Produto {
   nome        String
   categoria   String
   marca       String?
-  precoCusto  Float
-  precoVenda  Float?
   negocio     Negocio   @relation(fields: [negocioId], references: [id])
   negocioId   Int
   variantes   Variante[]
@@ -34,6 +32,8 @@ model Produto {
 model Variante {
   id        Int     @id @default(autoincrement())
   quantidade  Int       @default(0)
+  precoCusto  Float
+  precoVenda  Float?
   tamanho   String?
   cor       String?
   tecido    String?
