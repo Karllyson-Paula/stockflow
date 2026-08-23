@@ -46,7 +46,7 @@ export async function PUT(request, { params }) {
 }
 
 export async function DELETE(request, { params }) {
-    const { id } = params
+    const { id } = await params
 
     const produto = await prisma.produto.findUnique({
         where: { id: Number(id)},

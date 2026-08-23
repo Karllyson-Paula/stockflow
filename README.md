@@ -1,6 +1,6 @@
 # StockFlow
 
-> Projeto Ellewood
+> Projeto Neves
 
 Sistema de gestão de estoque para micro e pequenos negócios. Desenvolvido para ser simples, adaptável e acessível para diferentes segmentos — vestuário, alimentício, industrial e tecnologia.
 
@@ -20,15 +20,23 @@ Em desenvolvimento ativo.
 ## Funcionalidades (MVP)
 
 - [x] Autenticação com NextAuth (login/cadastro)
-- [x] Cadastro de produtos com atributos dinâmicos
-- [x] Dashboard com listagem de produtos
-- [ ] Editar e deletar produtos
+- [x] Cadastro de produtos com variantes (tamanho, cor, gênero, tecido)
+- [x] Preço por variante — suporte a preços diferenciados para tamanhos plus size
+- [x] Upsert de produtos — variantes adicionadas ao produto existente ao recadastrar
+- [x] Dashboard com listagem de produtos e variantes
+- [x] Busca por nome do produto
+- [x] Filtro estático por categoria
+- [x] Deletar produto completo (com confirmação)
+- [x] Deletar variante individual (com confirmação)
+- [ ] Editar produto e variante
+- [ ] Filtro dinâmico por categoria
 - [ ] Alerta de estoque baixo
 - [ ] Gestão financeira
 - [ ] Multi-negócio
 
 ## Como rodar localmente
 
+```
 Clone o repositório e instale as dependências:
 git clone https://github.com/Karllyson-Paula/stockflow.git
 cd stockflow
@@ -42,21 +50,31 @@ NEXTAUTH_URL=http://localhost:3000
 Rode as migrações e inicie o servidor:
 npx prisma migrate dev
 npm run dev
+```
 
 ## Estrutura
 
 ```
 app/
-  api/              ← endpoints REST
-  dashboard/        ← área logada
-  login/            ← autenticação
-components/         ← componentes reutilizáveis
+  api/
+    produtos/         ← CRUD de produtos e variantes
+    negocios/         ← CRUD de negócios
+    usuarios/         ← cadastro de usuários
+    auth/             ← NextAuth
+  dashboard/
+    produtos/novo/    ← cadastro de produto
+  login/              ← autenticação
+components/
+  ListaProdutos.js    ← listagem com busca, filtro e deleção
+  Navbar.js           ← navegação com logout
+  Providers.js        ← SessionProvider
 lib/
-  prisma.js         ← cliente do banco
-  auth.js           ← configuração NextAuth
+  prisma.js           ← cliente do banco
+  auth.js             ← configuração NextAuth
 prisma/
-  schema.prisma     ← modelos do banco
+  schema.prisma       ← modelos do banco
 ```
+
 ## Autor
 
 Karllyson Eduardo — [@Karllyson-Paula](https://github.com/Karllyson-Paula)
