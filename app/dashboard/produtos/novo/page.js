@@ -48,74 +48,118 @@ export default function NovoProduto() {
     }
 
     return (
-        <div>
-            <h2>Cadastrar produto</h2>
-            <form onSubmit={handleCriar}>
-                <input
-                placeholder='Nome do produto'
-                value={nome}
-                onChange={e => setNome(e.target.value)}
-                />
-                <input
-                placeholder='Categoria'
-                value={categoria}
-                onChange={e => setCategoria(e.target.value)}
-                />
-                <input
-                placeholder='Marca'
-                value={marca}
-                onChange={e => setMarca(e.target.value)}
-                />
-                
-                <div>
-                    <h3>Variantes</h3>
-                    {variantes.map((variante, index) => (
-                        <div key={index}>
-                            <input
-                            placeholder='Tamanho'
-                            value={variante.tamanho}
-                            onChange={e => atualizarVariante(index, 'tamanho', e.target.value)}
-                            />
-                            <input
-                            placeholder='Cor'
-                            value={variante.cor}
-                            onChange={e => atualizarVariante(index, 'cor', e.target.value)}
-                            />
-                            <input
-                            placeholder='Genero'
-                            value={variante.genero}
-                            onChange={e => atualizarVariante(index, 'genero', e.target.value)}
-                            />
-                            <input
-                            placeholder='Tecido'
-                            value={variante.tecido}
-                            onChange={e => atualizarVariante(index, 'tecido', e.target.value)}
-                            />
-                            <input
-                            placeholder='Preço de custo'
-                            value={variante.precoCusto}
-                            onChange={e => atualizarVariante(index, 'precoCusto', e.target.value)}
-                            />
-                            <input
-                            placeholder='Preço de venda'
-                            value={variante.precoVenda}
-                            onChange={e => atualizarVariante(index, 'precoVenda', e.target.value)}
-                            />
-                            <input
-                            placeholder='Quantidade'
-                            value={variante.quantidade}
-                            onChange={e => atualizarVariante(index, 'quantidade', e.target.value)}
-                            />
-                            <button type='button' onClick={() => removerVariante(index)}>🗑️</button>
-                        </div>
-                    ))}
-                    <button type='button' onClick={adicionarVariante}>+ Adicionar variantes</button>
-                </div>
-                {erro && <p style={{ color: 'red' }}>{erro}</p>}
-                <button type="submit" disabled={loading}>
-                    {loading ? 'Salvando' : 'Cadastrar'}
-                </button>
-            </form>
-        </div>
-    )
+  <div className="max-w-2xl mx-auto px-4 py-6">
+    <div className="flex items-center justify-between mb-6">
+      <h2 className="text-lg font-medium text-gray-900">Novo produto</h2>
+      <button
+        type="button"
+        onClick={() => router.push('/dashboard')}
+        className="text-sm text-gray-400 hover:text-gray-600"
+      >
+        Cancelar
+      </button>
+    </div>
+
+    <form onSubmit={handleCriar} className="flex flex-col gap-3">
+      <input
+        placeholder="Nome do produto"
+        value={nome}
+        onChange={e => setNome(e.target.value)}
+        className="text-sm px-3 py-2 border border-gray-200 rounded focus:outline-none focus:border-gray-400"
+      />
+      <input
+        placeholder="Categoria"
+        value={categoria}
+        onChange={e => setCategoria(e.target.value)}
+        className="text-sm px-3 py-2 border border-gray-200 rounded focus:outline-none focus:border-gray-400"
+      />
+      <input
+        placeholder="Marca (opcional)"
+        value={marca}
+        onChange={e => setMarca(e.target.value)}
+        className="text-sm px-3 py-2 border border-gray-200 rounded focus:outline-none focus:border-gray-400"
+      />
+
+      <div className="mt-2">
+        <h3 className="text-sm font-medium text-gray-700 mb-3">Variantes</h3>
+
+        {variantes.map((variante, index) => (
+          <div key={index} className="border border-gray-100 rounded p-3 mb-3 flex flex-col gap-2">
+            <div className="grid grid-cols-2 gap-2">
+              <input
+                placeholder="Tamanho"
+                value={variante.tamanho}
+                onChange={e => atualizarVariante(index, 'tamanho', e.target.value)}
+                className="text-sm px-3 py-2 border border-gray-200 rounded focus:outline-none focus:border-gray-400"
+              />
+              <input
+                placeholder="Cor"
+                value={variante.cor}
+                onChange={e => atualizarVariante(index, 'cor', e.target.value)}
+                className="text-sm px-3 py-2 border border-gray-200 rounded focus:outline-none focus:border-gray-400"
+              />
+              <input
+                placeholder="Gênero"
+                value={variante.genero}
+                onChange={e => atualizarVariante(index, 'genero', e.target.value)}
+                className="text-sm px-3 py-2 border border-gray-200 rounded focus:outline-none focus:border-gray-400"
+              />
+              <input
+                placeholder="Tecido"
+                value={variante.tecido}
+                onChange={e => atualizarVariante(index, 'tecido', e.target.value)}
+                className="text-sm px-3 py-2 border border-gray-200 rounded focus:outline-none focus:border-gray-400"
+              />
+              <input
+                placeholder="Preço de custo"
+                value={variante.precoCusto}
+                onChange={e => atualizarVariante(index, 'precoCusto', e.target.value)}
+                className="text-sm px-3 py-2 border border-gray-200 rounded focus:outline-none focus:border-gray-400"
+              />
+              <input
+                placeholder="Preço de venda"
+                value={variante.precoVenda}
+                onChange={e => atualizarVariante(index, 'precoVenda', e.target.value)}
+                className="text-sm px-3 py-2 border border-gray-200 rounded focus:outline-none focus:border-gray-400"
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <input
+                placeholder="Quantidade"
+                value={variante.quantidade}
+                onChange={e => atualizarVariante(index, 'quantidade', e.target.value)}
+                className="flex-1 text-sm px-3 py-2 border border-gray-200 rounded focus:outline-none focus:border-gray-400"
+              />
+              <button
+                type="button"
+                onClick={() => removerVariante(index)}
+                className="text-gray-300 hover:text-red-400 text-lg"
+              >
+                🗑️
+              </button>
+            </div>
+          </div>
+        ))}
+
+        <button
+          type="button"
+          onClick={adicionarVariante}
+          className="text-sm text-gray-400 border border-dashed border-gray-200 rounded px-3 py-2 w-full hover:border-gray-400"
+        >
+          + Adicionar variante
+        </button>
+      </div>
+
+      {erro && <p className="text-xs text-red-400">{erro}</p>}
+
+      <button
+        type="submit"
+        disabled={loading}
+        className="text-sm bg-gray-900 text-white py-2 rounded hover:bg-gray-700 disabled:opacity-50 mt-2"
+      >
+        {loading ? 'Salvando...' : 'Cadastrar produto'}
+      </button>
+    </form>
+  </div>
+)
 }

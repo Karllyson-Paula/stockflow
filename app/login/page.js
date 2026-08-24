@@ -61,46 +61,61 @@ export default function Login() {
     }
 
     return (
-        <div>
-            <h2> {aba === 'login' ? 'Login' : 'Cadastro'} </h2>
+        <div className="min-h-screen flex items-center justify-center bg-white px-4">
+            <div className="w-full max-w-sm">
+                <h1 className="text-x1 font-medium text-gray-900 mb-1">StockFlow</h1>
+                <p className="text-sm text-gray-400 mb-6">Projeto Neves</p>
 
-            <div style={{ display: 'flex', gap: '8px', margin: '8px 0'}}>
-                <button onClick={() => setAba('login')}> Login </button>
-                <button onClick={() => setAba('cadastro')}> Cadastro </button>
-            </div>
+                <div className="flex gap-4 mb-6 border-b border-gray-100">
+                    <button
+                     onClick={() => setAba('login')}
+                     className={`text-sm pb-2 ${aba === 'login' ? 'text-gray-900 border-b-2 border-gray-900' : 'text-gray-400'}`}
+                    >
 
-            <form onSubmit={aba === 'login' ? handleLogin : handleCadastro}>
-                {aba === 'cadastro' && (
-                    <div>
+                        Login
+                    </button>
+                    <button
+                     onClick={() => setAba('cadastro')}
+                     className={`text-sm pb-2 ${aba === 'cadastro' ? 'text-gray-900 border-b-2 border-gray-900' : 'text-gray-400'}`}
+                    >
+
+                        Cadastro
+                    </button>
+                </div>
+
+                <form onSubmit={aba === 'login' ? handleLogin : handleCadastro} className="flex flex-col gap-3">
+                    {aba === 'cadastro' && (
                         <input
-                            type="text"
-                            placeholder="Nome"
-                            value={nome}
-                            onChange={e => setNome(e.target.value)}
+                        type="text"
+                        placeholder="Nome"
+                        value={nome}
+                        onChange={e => setNome(e.target.value)}
+                        className="text-sm px-3 py-2 border-gray-200 rounded focus:outline-none focus:border-gray-400"
                         />
-                    </div>
-                )}
-                <div>
+                    )}
                     <input
-                        type="email"
-                        placeholder="E-mail"
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
+                    type="email"
+                    placeholder="E-mail"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    className="text-sm px-3 py-2 border-gray-200 rounded focus:outline-none focus:border-gray-400"
                     />
-                </div>
-                <div>
                     <input
-                        type="password"
-                        placeholder="Senha"
-                        value={senha}
-                        onChange={e => setSenha(e.target.value)}
+                    type="password"
+                    placeholder="Senha"
+                    onChange={e => setSenha(e.target.value)}
+                    className="text-sm px-3 py-2 border-gray-200 rounded focus:outline-none focus:border-gray-400"
                     />
-                </div>
-                {erro && <p style={{ color: 'red' }}>{erro}</p>}
-                <button type="submit" disabled={loading}>
-                    {loading ? 'Aguarde...' : aba === 'login' ? 'Entrar' : 'Cadastrar'}
-                </button>
-            </form>
+                    {erro && <p className="text-xs text-red-400">{erro}</p>}
+                    <button
+                     type="submit"
+                     disabled={loading}
+                     className="text-sm bg-gray-900 text-white py-2 rounded hover:bg-gray-700 disabled:opacity-50"
+                    >
+                        {loading ? 'Aguarde...' : aba === 'login' ? 'Entrar' : 'Cadastrar'}
+                    </button>
+                </form>
+            </div>
         </div>
     )
 }

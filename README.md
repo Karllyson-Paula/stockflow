@@ -24,12 +24,12 @@ Em desenvolvimento ativo.
 - [x] Preço por variante — suporte a preços diferenciados para tamanhos plus size
 - [x] Upsert de produtos — variantes adicionadas ao produto existente ao recadastrar
 - [x] Dashboard com listagem de produtos e variantes
-- [x] Busca por nome do produto
-- [x] Filtro estático por categoria
+- [x] Busca por nome do produto em tempo real
+- [x] Filtro dinâmico por categoria
 - [x] Deletar produto completo (com confirmação)
 - [x] Deletar variante individual (com confirmação)
+- [x] Interface minimalista responsiva com Tailwind CSS
 - [ ] Editar produto e variante
-- [ ] Filtro dinâmico por categoria
 - [ ] Alerta de estoque baixo
 - [ ] Gestão financeira
 - [ ] Multi-negócio

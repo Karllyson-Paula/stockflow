@@ -13,20 +13,24 @@ export default async function Dashboard() {
         
     })
         return (
-            <div>
-                <h1>
-                    <p> Bem vindo {session.user.name}! </p>
-                    
-                        <Link href={"/dashboard/produtos/novo"}>Novo Produto</Link>
-                </h1>
-
-                <div>
-                    {produtos.length === 0 ? (
-                        <p>Nenhum produto cadastrado.</p>
-                    ) : (<ListaProdutos produtos={produtos}/>)}
+            <div className="max-w-2x1 mx-auto px-4 py-6">
+                <div className="flex items-baseline justify-between mb-6">
+                    <h1 className="text-lg font-medium text-gray-900">
+                        Olá, {session.user.name}
+                    </h1>
+                    <Link href="/dashboard/produtos/novo"
+                    className="text-sm text-gray-500 border border-gray-200 rounded px-3 py-1.5 hover:border-gray-400"
+                    >
+                        + Novo produto
+                    </Link>
                 </div>
+
+                {produtos.length === 0 ? (
+                    <p className="text-sm text-gray-400">Nenhum produto cadastrado</p>
+                ) : (
+                    <ListaProdutos produtos={produtos} />
+                )}
             </div>
-            
         )
     
 }
