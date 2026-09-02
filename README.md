@@ -28,6 +28,8 @@ Em desenvolvimento ativo.
 - [x] Filtro dinâmico por categoria
 - [x] Deletar produto completo (com confirmação)
 - [x] Deletar variante individual (com confirmação)
+- [x] Carrinho de saída - registrar vendas com multiplos itens de uma vez
+- [x] Baixa de estoque automática ao confirmar venda
 - [x] Interface minimalista responsiva com Tailwind CSS
 - [ ] Editar produto e variante
 - [ ] Alerta de estoque baixo
@@ -58,6 +60,7 @@ npm run dev
 app/
   api/
     produtos/         ← CRUD de produtos e variantes
+    vendas/           ←registrar saída de estoque
     negocios/         ← CRUD de negócios
     usuarios/         ← cadastro de usuários
     auth/             ← NextAuth
@@ -65,6 +68,7 @@ app/
     produtos/novo/    ← cadastro de produto
   login/              ← autenticação
 components/
+  CarrinhoSaida       ← carrinho de saída com baixa de estoque
   ListaProdutos.js    ← listagem com busca, filtro e deleção
   Navbar.js           ← navegação com logout
   Providers.js        ← SessionProvider

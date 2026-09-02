@@ -1,11 +1,13 @@
 'use client'
 
 import { useState } from "react"
+import CarrinhoSaida from './CarrinhoSaida'
 
 export default function ListaProdutos({ produtos }) {
     const [busca, setBusca] = useState('')
     const [categoria, setCategoria] = useState('')
     const [listaProdutos, setListaProdutos] = useState(produtos)
+    const [carrinhoAberto, setCarrinhoAberto] = useState(false)
 
     const produtosFiltrados = listaProdutos.filter(produto => {
         const matchBusca = produto.nome.toLowerCase().includes(busca.toLowerCase())
@@ -42,8 +44,31 @@ export default function ListaProdutos({ produtos }) {
     
     const categorias = [...new Set(todasCategorias)]
 
+    const aoConfirmar = () => {
+      setCarrinhoAberto(false)
+      window.location.reload()
+    }
+
     return (
   <div className="px-4 py-4">
+    <div className="flex justify-between items-center mb-4">
+      <span className="text-sm text-gray-500"> {listaProdutos.length} produtos </span>
+      <button 
+      onClick={() => setCarrinhoAberto(true)}
+      className="text-sm border border-gray-200 rounded px-3 py-1.5 text-gray-600 hover:border-gray-400"
+      >
+        Registrar venda
+      </button>
+    </div>
+
+    {carrinhoAberto && (
+        <CarrinhoSaida
+          produtos={listaProdutos}
+          onFechar={() => setCarrinhoAberto(false)}
+          onConfirmar={aoConfirmar}
+        />
+      )}
+
     <div className="flex gap-2 mb-4">
       <input
         placeholder="Pesquisar..."

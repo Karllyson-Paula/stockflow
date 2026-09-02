@@ -36,26 +36,46 @@ export async function POST(request) {
     })
 
     if (produtoExistente) {
-        await prisma.variante.createMany({
-            data: variantesConvertidas.map(v => ({
-                ...v,
-                produtoId: produtoExistente.id
-            }))
+        const variantesExistentes = await prisma.variante.findMany({
+            where: { produtoId: produtoExistente.id }
         })
+
+        for (const v of variantesConvertidas) {
+            const duplicada = variantesExistentes.find(e =>
+                e.tamanho === v.tamanho &&
+                e.cor === v.cor &&
+                e.genero === v.genero &&
+                e.tecido === v.tecido &&
+                e.precoCusto === v.precoCusto &&
+                e.precoVenda === v.precoVenda
+            )
+
+            if (duplicada) {
+                await prisma.variante.update({
+                    where: { id: duplicada.id },
+                    data: { quantidade: duplicada.quantidade + v.quantidade }
+                })
+            } else {
+                await prisma.variante.create({
+                    data: { ...v, produtoId: produtoExistente.id }
+                })
+            }
+        }
+
         return NextResponse.json(produtoExistente, { status: 201 })
     } else {
         const produto = await prisma.produto.create({
-        data: {
-            nome,
-            categoria,
-            marca,
-            negocioId: Number(negocioId),
-            variantes: {
-                create: variantesConvertidas || []
-            }
-        },
-        include: { variantes: true}
-    })
-    return NextResponse.json(produto, { status: 201 })
+            data: {
+                nome,
+                categoria,
+                marca,
+                negocioId: Number(negocioId),
+                variantes: {
+                    create: variantesConvertidas || []
+                }
+            },
+            include: { variantes: true }
+        })
+        return NextResponse.json(produto, { status: 201 })
     }
 }
