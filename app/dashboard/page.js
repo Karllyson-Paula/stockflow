@@ -12,8 +12,21 @@ export default async function Dashboard() {
         include: { variantes: true }
         
     })
+
+    const negocio = await prisma.negocio.findUnique({
+        where: { id: session.user.negocioId }
+    })
+
+    const variantesEstoqueBaixo = produtos.flatMap(p =>
+        p.variantes.filter(v => v.quantidade <= negocio.alertaMin)
+    )
         return (
             <div className="max-w-2x1 mx-auto px-4 py-6">
+                {variantesEstoqueBaixo.length > 0 && (
+                        <div className="mb-4 p-3 bg-yellow-border-200 rounded text-sm text-yellow-700">
+                            {variantesEstoqueBaixo.length} variante(s)
+                        </div>
+                    )}
                 <div className="flex items-baseline justify-between mb-6">
                     <h1 className="text-lg font-medium text-gray-900">
                         Olá, {session.user.name}
