@@ -23,16 +23,19 @@ Em desenvolvimento ativo.
 - [x] Cadastro de produtos com variantes (tamanho, cor, gênero, tecido)
 - [x] Preço por variante — suporte a preços diferenciados para tamanhos plus size
 - [x] Upsert de produtos — variantes adicionadas ao produto existente ao recadastrar
+- [x] Mescla de variantes duplicadas — soma quantidade ao recadastrar variante idêntica
 - [x] Dashboard com listagem de produtos e variantes
 - [x] Busca por nome do produto em tempo real
 - [x] Filtro dinâmico por categoria
+- [x] Ordenação de produtos por nome
 - [x] Deletar produto completo (com confirmação)
 - [x] Deletar variante individual (com confirmação)
-- [x] Carrinho de saída - registrar vendas com multiplos itens de uma vez
+- [x] Editar produto e variantes
+- [x] Carrinho de saída — registrar vendas com múltiplos itens de uma vez
 - [x] Baixa de estoque automática ao confirmar venda
+- [x] Alerta de estoque baixo com detalhes das variantes afetadas
 - [x] Interface minimalista responsiva com Tailwind CSS
-- [ ] Editar produto e variante
-- [ ] Alerta de estoque baixo
+- [ ] Fluxo de cadastro completo (negócio + usuário na mesma tela)
 - [ ] Gestão financeira
 - [ ] Multi-negócio
 
@@ -60,23 +63,25 @@ npm run dev
 app/
   api/
     produtos/         ← CRUD de produtos e variantes
-    vendas/           ←registrar saída de estoque
+    vendas/           ← registrar saída de estoque
     negocios/         ← CRUD de negócios
     usuarios/         ← cadastro de usuários
     auth/             ← NextAuth
   dashboard/
     produtos/novo/    ← cadastro de produto
+    produtos/[id]/    ← editar produto
   login/              ← autenticação
 components/
-  CarrinhoSaida       ← carrinho de saída com baixa de estoque
-  ListaProdutos.js    ← listagem com busca, filtro e deleção
-  Navbar.js           ← navegação com logout
-  Providers.js        ← SessionProvider
+  CarrinhoSaida.js   ← carrinho de saída com baixa de estoque
+  FormEditarProduto.js ← formulário de edição de produto
+  ListaProdutos.js   ← listagem com busca, filtro e deleção
+  Navbar.js          ← navegação com logout
+  Providers.js       ← SessionProvider
 lib/
-  prisma.js           ← cliente do banco
-  auth.js             ← configuração NextAuth
+  prisma.js          ← cliente do banco
+  auth.js            ← configuração NextAuth
 prisma/
-  schema.prisma       ← modelos do banco
+  schema.prisma      ← modelos do banco
 ```
 
 ## Autor
