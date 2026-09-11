@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import CarrinhoSaida from './CarrinhoSaida'
+import Link from "next/link"
 
 export default function ListaProdutos({ produtos }) {
     const [busca, setBusca] = useState('')
@@ -102,6 +103,11 @@ export default function ListaProdutos({ produtos }) {
           >
             Deletar
           </button>
+          <Link href={`/dashboard/produtos/${produto.id}`}
+            className="text-xs text-gray-400 hover:text-gray-600"
+          >
+            Editar
+          </Link>
         </div>
 
         {produto.variantes.map((variante, i) => (

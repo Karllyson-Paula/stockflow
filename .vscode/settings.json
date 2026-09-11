@@ -1,3 +1,16 @@
 {
-    "git.ignoreLimitWarning": true
+  "git.ignoreLimitWarning": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.inlineSuggest.mode": "prefix",
+  "editor.quickSuggestions": {
+    "other": "on",
+    "comments": "off",
+    "strings": "off"
+  },
+  "editor.suggestSelection": "recentlyUsed",
+  "editor.acceptSuggestionOnEnter": "on",
+  "editor.snippetSuggestions": "top",
+  "editor.wordBasedSuggestions": "matchingDocuments",
+  "editor.suggestOnTriggerCharacters": true,
+  "editor.quickSuggestionsDelay": 200
 }

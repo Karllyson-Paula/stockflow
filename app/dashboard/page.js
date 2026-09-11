@@ -9,7 +9,8 @@ export default async function Dashboard() {
 
     const produtos = await prisma.produto.findMany({
         where: { negocioId: session.user.negocioId },
-        include: { variantes: true }
+        include: { variantes: true },
+        orderBy: { nome: 'asc' }
         
     })
 
@@ -23,8 +24,17 @@ export default async function Dashboard() {
         return (
             <div className="max-w-2x1 mx-auto px-4 py-6">
                 {variantesEstoqueBaixo.length > 0 && (
-                        <div className="mb-4 p-3 bg-yellow-border-200 rounded text-sm text-yellow-700">
-                            {variantesEstoqueBaixo.length} variante(s)
+                        <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded text-sm text-yellow-700">
+                            <p className="font medium mb-1"> ⚠️ {variantesEstoqueBaixo.length} Produto(s) com estoque abaixo de {negocio.alertaMin} unidades: </p>
+                            {produtos.flatMap(p => 
+                                p.variantes
+                                    .filter(v => v.quantidade <= negocio.alertaMin)
+                                    .map(v => (
+                                        <p key={v.id} className="text-xs">
+                                            • {p.nome} - {v.tamanho} . {v.cor} . Qtd: {v.quantidade}
+                                        </p>
+                                    ))
+                            )}
                         </div>
                     )}
                 <div className="flex items-baseline justify-between mb-6">
